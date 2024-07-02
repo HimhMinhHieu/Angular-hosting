@@ -1,0 +1,113 @@
+<!-- <head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</head> -->
+<!-- Button trigger modal -->
+
+<!-- <ng-template #load>
+  <app-my-spinner></app-my-spinner>
+</ng-template>
+
+<div *ngIf="loading === false; else load" #sliderContainer class="slider-container">
+  <div #slideLeft class="left-slide">
+    <div *ngFor="let f of dataFoodRecommend">
+      <h1>{{f.name}}</h1>
+      <p>{{f.price}} VND</p>
+      <button (click)="addCart(f)" class="btn btn-success mt-5 button-order">
+        <span>Đặt món ngay</span>
+        <i class="fa-solid fa-cart-plus icon-cart"></i>
+      </button>
+
+    </div>
+  </div>
+  <div #slideRight class="right-slide">
+    <div *ngFor="let f of dataFoodRecommend"
+      style="
+        background-image: url('{{f.image}}');
+      "
+    ></div>
+  </div>
+
+
+
+  <div class="action-buttons">
+    <button (click)="changeSlide('down')" class="down-button">
+      <i class="fa fa-arrow-down"></i>
+    </button>
+    <button (click)="changeSlide('up')" class="up-button">
+      <i class="fa fa-arrow-up"></i>
+    </button>
+  </div>
+</div> -->
+
+<body [style]="backgroundFood">
+  <ng-container *ngIf="loading === true"><app-my-spinner /></ng-container>
+
+  <div *ngIf="loading === false" style="flex-direction: column">
+    <div class="container">
+      <div
+        [@showAnimate]
+        (mouseleave)="mouseOutImage()"
+        *ngFor="let f of dataFoodRecommend | paginate : { itemsPerPage: 3, currentPage: p }"
+        class="card"
+      >
+        <img (mouseenter)="mouseInImage($event.target)" src="{{ f.image }}" />
+        <div class="card__head">{{ f.name }}</div>
+        <div class="card_body" style="flex-direction: column">
+          <h2>{{ f.name }}</h2>
+          <h5 class="fs-5 mb-2 mt-2 text-start">Description</h5>
+          <p class="lead text-start anyClass">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
+            at
+          </p>
+          <div class="d-flex justify-content-start">
+            <input
+              (change)="onChangeQuan(quan.value)"
+              class="form-control text-center me-3"
+              id="inputQuantity"
+              type="num"
+              [value]="quantity"
+              #quan
+              style="max-width: 3rem"
+            />
+            <span (click)="onPlus()" class="plus bg-dark me-3">+</span>
+            <span (click)="onMinus()" class="minus bg-dark me-3">-</span>
+
+            <!-- <button
+                (click)="addCart(food)"
+                class="btn btn-outline-dark flex-shrink-0"
+                type="button"
+              >
+                <i class="bi-cart-fill me-1"></i>
+                Add to cart
+              </button> -->
+            <button (click)="addCart(f)" type="button" class="btn btn-warning">
+              <div>
+                <i class="fa-solid fa-utensils"></i>
+                <p style="margin-left: 1rem">Đặt món</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <pagination-controls
+      class="pagination-spreads"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel=""
+      nextLabel=""
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </div>
+</body>
